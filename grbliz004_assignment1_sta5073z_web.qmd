@@ -77,7 +77,7 @@ format:
         </style>
     include-before: |
       <div class="header-image">
-        <img src="recommender.png" alt="Header Graphic" style="width: 100%; height: auto;">
+        <img src="data/recommender.png" alt="Header Graphic" style="width: 100%; height: auto;">
       </div>
 ---
 
@@ -110,22 +110,23 @@ Recommender systems also have the potential to play a key role in education and 
 
 ```{r data loading, include=FALSE, message=FALSE}
 #load the data 
-books <- read.csv("Books.csv")
-users <- read.csv("Users.csv")
-ratings <- read.csv("Ratings.csv")
+# books <- read.csv("Books.csv")
+# users <- read.csv("Users.csv")
+# ratings <- read.csv("Ratings.csv")
+# 
+# #remove the unnecessary info
+# books <- books %>%
+#   select(-`Image.URL.S`, -`Image.URL.M`, -`Image.URL.L`)
+# 
+# 
+# #combine data
+# data <- ratings %>%
+#   left_join(books, by = "ISBN") %>%
+#   left_join(users, by = "User.ID")
 
-#remove the unnecessary info
-books <- books %>%
-  select(-`Image.URL.S`, -`Image.URL.M`, -`Image.URL.L`)
+load("data/alldata.RData")
 
-
-#combine data
-data <- ratings %>%
-  left_join(books, by = "ISBN") %>%
-  left_join(users, by = "User.ID")
-
-
-
+#save(books,users,ratings,data, file = "alldata.RData")
 ```
 
 ## Data Distribution
@@ -325,7 +326,7 @@ rownames(user_item_matrix) <- sorted_my_users
 
 
 ```{r load the similarities, echo=FALSE, message=FALSE}
-load("similarities.RData")
+load("data/similarities.RData")
 ```
 
 ## User-based Collaborative Filtering
@@ -494,7 +495,7 @@ recommend_ubcf <- function(user_id, user_item_matrix, user_similarities) {
 
 ```{r ubcf runnung recommend_ucbf , echo=FALSE, message=FALSE}
 # load the data
-load("top_CFs_examples.RData")
+load("data/top_CFs_examples.RData")
 
 #recommendations_ubcf <- recommend_ubcf("6532", user_item_matrix, user_similarities)
 
@@ -760,7 +761,7 @@ The training set was used to train the matrix factorization with these optimal p
  # Create a Reco model object
  rs <- Reco()
 
-load("tune_model.RData")
+load("data/tune_model.RData")
 ```
 
 
@@ -1132,7 +1133,7 @@ recommend_ubcf2 <- function(user_id, user_item_matrix, user_similarities) {
 
 
 ```{r ubcf 8 tesing recommend_ucbf2 , echo=FALSE, message=FALSE}
-load("alternative_top10.RData")
+load("data/alternative_top10.RData")
 
 #recommendations_ubcf2 <- recommend_ubcf2("6532", user_item_matrix, user_similarities)
 
